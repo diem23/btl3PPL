@@ -1,0 +1,9 @@
+
+        dynamic t
+        dynamic b
+        dynamic c
+        dynamic d
+        dynamic e
+        dynamic f
+        number a[2,3] <- [[b,t,d],[c,e,f]]
+        
