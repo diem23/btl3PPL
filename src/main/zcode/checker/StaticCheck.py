@@ -5,9 +5,7 @@ from StaticError import *
 from functools import reduce
 NumOfLoop = 0
 class NoneType: pass
-class UseInLoop:
-    def __init__(self,name):
-        self.name = name
+
 class FunctionType:
     def __init__(self,param,haveBody,returnType):
         self.param = param
@@ -17,32 +15,33 @@ class Symbol:
     def __init__(self, name, mtype):
         self.name = name
         self.mtype = mtype
-
+class CannotInferType: pass
 class HelpingTools:
-    def checkRedeclared(name,isFunc,o):
+    def checkRedeclared(name,o):
         for item in o[0]:
-            if item.name == name :
-                if isFunc and type(item.mtype) is FunctionType:
-                    return True
-                if not isFunc and type(item.mtype) is not FunctionType:
-                    return True
+            if item.name == name and type(item.mtype) is not FunctionType:
+                return True
         return False
-    def inferType(name,Type,o):
+    def inferType(name,Type,o,checkFunction=False):
+        #print(name,Type)
+        if type(name) is not str:
+            name=name.name
         for scope in o:
             for item in scope:
-                if item.name == name:
+                if item.name == name :
                     #print('item name: ',item.name)
                     #print('item type: ',item.mtype)
-                    if type(item.mtype) is ArrayType and type(Type) is ArrayType:
-                        #print('infer arrayType')
-                        item.mtype.eleType = Type.eleType
-                        item.mtype.size += Type.size
-                    elif type(item.mtype) is FunctionType:
-                        item.mtype.returnType = Type
-                    else: 
-                        #print('infer type: ',Type)
-                        item.mtype = Type
-                    return True  ## infer type successfully
+                    if checkFunction and type(item.mtype) is FunctionType or not checkFunction and type(item.mtype) is not FunctionType:
+                        if type(item.mtype) is ArrayType and type(Type) is ArrayType:
+                            #print('infer arrayType')
+                            item.mtype.eleType = Type.eleType
+                            item.mtype.size += Type.size
+                        elif type(item.mtype) is FunctionType:
+                            item.mtype.returnType = Type
+                        else: 
+                            #print('infer type: ',Type)
+                            item.mtype = Type
+                        return True  ## infer type successfully
         return False ## cannot infer type
     def getSubArrayType(name1,name2):    ## name1 va name2 la 2 ArrayType, name1 hoac name2 la nonetype, 
         result=[]                       ## func tra ve false neu 2 kieu khong tuong duong, tra ve kieu array de mot mang co the suy ra mang con lai
@@ -243,12 +242,14 @@ class StaticChecker(BaseVisitor, Utils):
         o[0]+=[Symbol('writeString',FunctionType([StringType()],True,VoidType()))]
         for i in ctx.decl:
             if isinstance(i,VarDecl):
-                if HelpingTools.checkRedeclared(i.name.name,False,o):
-                    raise Redeclared(i.name.name,"Variable")
-            elif isinstance(i,FuncDecl):
-                if HelpingTools.checkRedeclared(i.name.name,True,o):
-                    raise Redeclared(i.name.name,"Function")
+                if HelpingTools.checkRedeclared(i.name.name,o):
+                    raise Redeclared("Variable",i.name.name)
             self.visit(i, o)
+            #print('program',len(o[0]))
+        for scope in o:
+            for item in scope:
+                if type(item.mtype) is FunctionType and item.mtype.haveBody == False:
+                    raise NoDefinition(item.name)
         flagEntry= False
         #HelpingTools.printO(o)
         for item in o[len(o)-1]:
@@ -258,21 +259,30 @@ class StaticChecker(BaseVisitor, Utils):
         if not flagEntry:
             raise NoEntryPoint()
     def visitVarDecl(self,ctx:VarDecl,o:object): 
+        if HelpingTools.checkRedeclared(ctx.name.name,o):
+                raise Redeclared("Variable",ctx.name.name)
+        #print('Vardecl: ', ctx)
+        if type(ctx.varType) == type(None):
+                o[0]+= [Symbol(ctx.name.name,NoneType())]
+        else: 
+            o[0]+=[Symbol(ctx.name.name,ctx.varType)]
         if type(ctx.varInit) != type(None):
             if type(ctx.varInit) is ArrayLiteral:
                 (rhs,names)=self.visit(ctx.varInit,o)
                 #print(rhs,names)
             else: 
                 rhs=self.visit(ctx.varInit,o)
-            if type(rhs) is NoneType and type(ctx.varType) == type(None):   ## both are NoneType
-                raise TypeCannotBeInferred(ctx.name.name)
+            if type(rhs) is CannotInferType:
+                raise TypeCannotBeInferred(ctx)
+            elif type(rhs) is NoneType and type(ctx.varType) == type(None):   ## both are NoneType
+                raise TypeCannotBeInferred(ctx)
             elif type(rhs) is NoneType and type(ctx.varType) != type(None): ## rhs is NoneType
                 HelpingTools.inferType(ctx.varInit.name,ctx.varType,o)
-                o[0]+=[Symbol(ctx.name.name,ctx.varType)]
             elif type(rhs) is not NoneType and type(ctx.varType) == type(None): ## ctx.varType is NoneType
+                
                 if type(rhs) is ArrayType and type(rhs.eleType) is NoneType:
                     raise TypeCannotBeInferred(ctx)
-                o[0]+=[Symbol(ctx.name.name,rhs)]
+                HelpingTools.inferType(ctx.name.name,rhs,o)
             else:                                                               ## both are not NoneType
                 if type(rhs) != type(ctx.varType):                              ## type mismatch
                     #print(type(rhs)is not NoneType,type(ctx.varType) == type(None))
@@ -286,58 +296,131 @@ class StaticChecker(BaseVisitor, Utils):
                         raise TypeMismatchInStatement(ctx)
                     for i in names:
                             HelpingTools.inferType(i,ctx.varType.eleType,o)
-                    
-                    
-                o[0]+=[Symbol(ctx.name.name,ctx.varType)]
-        else:   ## no initialization
-            if type(ctx.varType) == type(None):
-                o[0]+= [Symbol(ctx.name.name,NoneType())]
-            else: o[0]+=[Symbol(ctx.name.name,ctx.varType)]
+        #print('VarDecl')
+        #HelpingTools.printO(o)
+        return (VoidType(),ctx)
+            
     def visitFuncDecl(self,ctx:FuncDecl,o:object):
+        
         param_list=[]
         env = [[]] + o
-        param_list=[self.visit(i,env) for i in ctx.param]
-        newFunc=[Symbol(ctx.name.name,FunctionType(param_list,NoneType()))]
-        o[0]+=newFunc
-        if type(ctx.body) is not type(None):  ## nếu func có body
-            env[1]+=newFunc                     ## thêm tên func vào scope trước đó của env
-            returnType=self.visit(ctx.body,env)     ## kiểm tra kiểu trả về của func
-            if type(returnType) is UseInLoop:
-                raise MustInLoop(returnType.name)
-            newFunc[0].mtype.returnType=returnType  ## cập nhật kiểu trả về của func
-            newFunc[0].mtype.haveBody=True
-            o[0]=o[0][:-1] + newFunc                ## xóa func có kiểu trả về NoneType ra khỏi o và thêm func có kiểu trả về đã cập nhật vào o
+        
+        for i in ctx.param:
+            param_list+=[i.varType]
+            if HelpingTools.checkRedeclared(i.name.name,env):
+                raise Redeclared("Parameter",i.name.name)
+            self.visit(i,env)
+        noDeclaration = True
+        ele=0                # check redeclare function
+        for ele in range(0,len(o[0])):
+            if o[0][ele].name == ctx.name.name and type(o[0][ele].mtype) is FunctionType:  ## phát hiện ra function có cùng tên
+                #print(ctx.name.name,o[0][ele].mtype.param,o[0][ele].mtype.haveBody,o[0][ele].mtype.returnType)
+                if o[0][ele].mtype.haveBody == False and o[0][ele].mtype.param == param_list:     ## kiểm tra xem có rơi vào TH only declaration không
+                    #print('returnType infered: ',o[0][ele].mtype.returnType)
+                    noDeclaration=False
+                    break
+                else:                                                                           ## nếu không thì raise redeclare
+                    raise Redeclared("Function",ctx.name.name)
+                
+        if noDeclaration:   
+            newFunc=[Symbol(ctx.name.name,FunctionType(param_list,False,NoneType()))]
+            o[0]+=newFunc
+        #print('FuncDecl')
+        #print(len(o[0]))
+        
+        #print(len(o[0]))
+        if type(ctx.body) is  type(None):  ## nếu func đã được khai báo và giờ được khai báo tiếp (không có body)
+            if noDeclaration == False:
+                raise Redeclared(ctx.name.name,"Function")
+        else:  ## nếu func có body
+            #env[1]+=newFunc                     ## thêm tên func vào scope trước đó của env
+            if type(ctx.body) is Block:
+                returnType=(VoidType(),ctx.body)
+                for i in ctx.body.stmt:
+            
+                    stmt=self.visit(i,env)
+            # print("hehe")
+            # HelpingTools.printO(newScope)
+            #print('stmt',stmt)
+                    if type(stmt[1]) is  Return and type(returnType[1]) is not Return:
+                        returnType=stmt
+            else:
+                returnType=self.visit(ctx.body,env)     ## kiểm tra kiểu trả về của func
+                #print('function return type: ',returnType)
+            #print(returnType)
+            #HelpingTools.printO(env)
+            if noDeclaration:
+                newFunc[0].mtype.returnType=returnType[0]  ## cập nhật kiểu trả về của func
+                newFunc[0].mtype.haveBody=True
+                o[0]=o[0][:-1] + newFunc                ## xóa func có kiểu trả về NoneType ra khỏi o và thêm func có kiểu trả về đã cập nhật vào o
+            else:
+                if type(o[0][ele].mtype.returnType) is NoneType:
+                    o[0][ele].mtype.returnType=returnType[0]
+                elif type(returnType[0]) != type(o[0][ele].mtype.returnType):
+                    raise TypeMismatchInStatement(returnType[1])
+                o[0][ele].mtype.haveBody=True
 
     def visitAssign(self,ctx,o:object):
-        lhs = self.visit(ctx.lhs)
-        rhs = self.visit(ctx.rhs)
-        if type(lhs) is NoneType and type(rhs) is NoneType:
+        #print(ctx)
+        if type(ctx.rhs) is ArrayLiteral:
+            (rhs,names)=self.visit(ctx.rhs,o)
+        else:
+            rhs = self.visit(ctx.rhs,o)
+        #print('rhs: ',type(rhs))
+        lhs = self.visit(ctx.lhs,o)
+        if type(lhs) is CannotInferType or type(rhs) is CannotInferType:
+            raise TypeCannotBeInferred(ctx)
+        #print('lhs: ',type(lhs))
+        if type(lhs) is VoidType:
+            raise TypeMismatchInStatement(ctx)
+        elif type(lhs) is NoneType and type(rhs) is NoneType:
             raise TypeCannotBeInferred(ctx)   
         elif type(lhs) is NoneType and type(rhs) is not NoneType:
-            HelpingTools.inferType(lhs.name,rhs,o)
-        elif type(lhs) is not NoneType and type(rhs) is  NoneType:
-            HelpingTools.inferType(rhs.name,lhs,o)
-        elif not HelpingTools.checkPriTypeEquivalent(rhs,lhs):
-            raise TypeMismatchInStatement(ctx)
-        return VoidType()
+            if type(rhs) is ArrayType and type(rhs.eleType) is NoneType:
+                raise TypeCannotBeInferred(ctx)
+            HelpingTools.inferType(ctx.lhs.name,rhs,o)
+        elif type(lhs) is not NoneType and type(rhs) is  NoneType: ## bên trái không thể là arrayType([...],NoneType) vì nếu có thì trước đó đã raise typeCannotBeInferred
+            HelpingTools.inferType(ctx.rhs.name,lhs,o)
+        else:
+            if type(rhs) == ArrayType and type(lhs) == ArrayType:   ## check array type
+                #print('go here!!!')
+                if type(rhs.eleType) is not NoneType and type(lhs.eleType) is not NoneType:
+                    if not HelpingTools.checkPriTypeEquivalent(rhs,lhs): 
+                        raise TypeMismatchInStatement(ctx)
+                temp = HelpingTools.getSubArrayType(lhs,rhs)
+                if temp is False:
+                    raise TypeMismatchInStatement(ctx)
+                for i in names:
+                        HelpingTools.inferType(i,lhs,o)
+            elif not HelpingTools.checkPriTypeEquivalent(rhs,lhs):
+                raise TypeMismatchInStatement(ctx)
+        return (VoidType(),ctx)
     def visitIf(self,ctx,o:object):
-        returnType=VoidType()
-        ifExpr=self.visit(ctx.expr)
-        if type(ifExpr) is NoneType:
+        returnType=(VoidType(),ctx)
+        ifExpr=self.visit(ctx.expr,o)
+        if type(ifExpr) is CannotInferType:
+            raise TypeCannotBeInferred(ctx)
+        elif type(ifExpr) is NoneType:
             HelpingTools.inferType(ifExpr.name,BoolType(),o)
         elif type(ifExpr) is not BoolType:
             raise TypeMismatchInStatement(ctx)
+        themStmtType=self.visit(ctx.thenStmt,o)
+        if type(themStmtType[1]) is Return and type(returnType[1]) is not Return:
+            returnType=themStmtType
         for i in ctx.elifStmt:
             expr=self.visit(i[0],o)
-            if type(expr) is NoneType:
+            if type(expr) is CannotInferType:
+                raise TypeCannotBeInferred(ctx)
+            elif type(expr) is NoneType:
                 HelpingTools.inferType(expr.name,BoolType(),o)
             elif type(expr) is not BoolType:
                 raise TypeMismatchInStatement(ctx)
             stmtType=self.visit(i[1],o)
-            if type(stmtType) is not VoidType and type(returnType) is VoidType :
-                returnType=stmtType    
+            if type(stmtType[1]) is Return and type(returnType[1]) is not Return :
+                returnType=stmtType 
         return returnType
     def visitFor(self,ctx,o:object): 
+        returnType = (VoidType(),ctx)
         Id=self.visit(ctx.name,o)
         if type(Id) is NoneType:
             HelpingTools.inferType(ctx.name.name,NumberType(),o)
@@ -345,131 +428,202 @@ class StaticChecker(BaseVisitor, Utils):
         elif type(Id) is not NumberType:
             raise TypeMismatchInStatement(ctx)
         conExpr=self.visit(ctx.condExpr,o)
-        if type(conExpr) is NoneType:
+        if type(conExpr) is CannotInferType:
+            raise TypeCannotBeInferred(ctx)
+        elif type(conExpr) is NoneType:
             HelpingTools.inferType(ctx.condExpr.name,BoolType(),o)
         elif type(conExpr) is not BoolType:
             raise TypeMismatchInStatement(ctx)
         updExpr=self.visit(ctx.updExpr,o)
-        if type(updExpr) is NoneType:
+        if type(updExpr) is CannotInferType:
+            raise TypeCannotBeInferred(ctx)
+        elif type(updExpr) is NoneType:
             HelpingTools.inferType(ctx.updExpr.name,NumberType(),o)
         elif type(updExpr) is not NumberType:
             raise TypeMismatchInStatement(ctx)
+        global NumOfLoop
         NumOfLoop+=1
         stmt=self.visit(ctx.body,o)
         NumOfLoop-=1
-        return stmt
+        if type(stmt[1]) is Return and type(returnType[1]) is not Return:
+            returnType=stmt
+        return returnType
     def visitBreak(self,ctx,o:object): 
         if NumOfLoop==0:
             raise MustInLoop('break')
-        return VoidType()
+        return (VoidType(),ctx)
     def visitContinue(self,ctx,o:object):
         if NumOfLoop==0:
             raise MustInLoop('continue')
-        return VoidType()
+        return (VoidType(),ctx)
     def visitReturn(self,ctx,o:object):
         if type(ctx.expr) is not type(None):
             returnType=self.visit(ctx.expr,o)
-            if type(returnType) is NoneType:
+            #print('return: ',returnType)
+            if type(returnType) is CannotInferType:
                 raise TypeCannotBeInferred(ctx)
-            return returnType
-        return VoidType()  
+            elif type(returnType) is NoneType:
+                raise TypeCannotBeInferred(ctx)
+            return (returnType,ctx)
+        return (VoidType(),ctx)
     def visitCallStmt(self,ctx,o:object):
-        Id = HelpingTools.customVisitId(ctx.name,o,True)
-        if Id.returnType is not VoidType:
+        Id = HelpingTools.customVisitId(ctx.name.name,o,True)
+        #print('callstmt: ')
+        #print(Id.param,Id.haveBody,Id.returnType)
+        if type(Id.returnType) is NoneType:
+            HelpingTools.inferType(ctx.name.name,VoidType(),o,True)
+        elif type(Id.returnType) is not VoidType:
+            #print('go here!!!')
             raise TypeMismatchInStatement(ctx)
         if len(ctx.args) != len(Id.param):
             raise TypeMismatchInStatement(ctx)
         for i in range(0,len(ctx.args)):
             arg = self.visit(ctx.args[i],o)
-            if type(arg) is NoneType:
+            if type(arg) is CannotInferType:
+                raise TypeCannotBeInferred(ctx)
+            elif type(arg) is NoneType:
                 HelpingTools.inferType(ctx.args[i].name,Id.param[i],o)
             elif not HelpingTools.checkPriTypeEquivalent(arg,Id.param[i]):
+                
                 raise TypeMismatchInStatement(ctx)
-        return VoidType()
+        return (VoidType(),ctx)
     def visitBlock(self,ctx,o:object):
-        returnType=VoidType()
+        #print('block')
+        returnType=(VoidType(),ctx)
         newScope=[[]]+o
-        for i in ctx.member:
+        #HelpingTools.printO(newScope)
+        for i in ctx.stmt:
+            
             stmt=self.visit(i,newScope)
-            if type(stmt) is not VoidType and type(returnType) is VoidType:
+            # print("hehe")
+            # HelpingTools.printO(newScope)
+            #print('stmt',stmt)
+            if type(stmt[1]) is  Return and type(returnType[1]) is not Return:
                 returnType=stmt
+        
+        #print('block')
+        #HelpingTools.printO(newScope)
+        #print(returnType)
         return returnType
-    def BinOp(self,ctx,o):
+    
+    def visitBinaryOp(self,ctx,o):
         #print(ctx)
+        #print('!!!!!!!!!!!!!!!!!!!!')
+        #HelpingTools.printO(o)
         left = self.visit(ctx.left,o)
         right = self.visit(ctx.right,o)
+        if type(left) is CannotInferType or type(right) is CannotInferType:
+            return CannotInferType()
+        #print('left: ',left)
+        #print('right: ',type(right))
         if ctx.op in ['+','-','*','/','%']:   # operantype is numbertype, return type is numbertype
-            if type(right) is not NoneType and type(right) is not NoneType:
-                if not (type(right) is NumberType and type(left) is NumberType):
-                    raise TypeMismatchInExpression(ctx)
+            if type(right) not in [NoneType,NumberType] or type(left) not in [NoneType,NumberType]:
+                raise TypeMismatchInExpression(ctx)
             if type(left) is NoneType:
-                HelpingTools.inferType(ctx.left.name,NumberType(),o)
+                if type(ctx.left) is CallExpr:
+                    HelpingTools.inferType(ctx.left.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.left.name,NumberType(),o)
+                #print('infer left')
+                #HelpingTools.printO(o)
                 left = NumberType()
             if type(right) is NoneType:
-                HelpingTools.inferType(ctx.right.name,NumberType(),o)
+                if type(ctx.right) is CallExpr:
+                    HelpingTools.inferType(ctx.right.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.right.name,NumberType(),o)
                 right = NumberType()
             return NumberType()
         elif ctx.op in ['and','or']: ## operantype is booltype, return type is booltype
-            if type(right) is not NoneType and type(right) is not NoneType:
-                if not (type(right) is BoolType and type(left) is BoolType):
-                    raise TypeMismatchInExpression(ctx)
+            if type(right) not in [NoneType,BoolType] or type(left) not in [NoneType,BoolType]:
+                raise TypeMismatchInExpression(ctx)
             if type(left) is NoneType:
-                HelpingTools.inferType(ctx.left.name,BoolType(),o)
+                if type(ctx.left) is CallExpr:
+                    HelpingTools.inferType(ctx.left.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.left.name,BoolType(),o)
                 left = BoolType()
             if type(right) is NoneType:
-                HelpingTools.inferType(ctx.right.name,BoolType(),o)
+                if type(ctx.right) is CallExpr:
+                    HelpingTools.inferType(ctx.right.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.right.name,BoolType(),o)
                 right = BoolType()
             return BoolType()
         elif ctx.op in ['...']: ## operantype is stringtype, return type is stringtype
-            if type(right) is not NoneType and type(right) is not NoneType:
-                if not (type(right) is StringType and type(left) is StringType):
-                    raise TypeMismatchInExpression(ctx)
+            if type(right) not in [NoneType,StringType] or type(left) not in [NoneType,StringType]:
+                raise TypeMismatchInExpression(ctx)
             if type(left) is NoneType:
-                HelpingTools.inferType(ctx.left.name,StringType(),o)
+                if type(ctx.left) is CallExpr:
+                    HelpingTools.inferType(ctx.left.name.name,StringType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.left.name,StringType(),o)
                 left = StringType()
             if type(right) is NoneType:
-                HelpingTools.inferType(ctx.right.name,StringType(),o)
+                if type(ctx.right) is CallExpr:
+                    HelpingTools.inferType(ctx.right.name.name,StringType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.right.name,StringType(),o)
                 right = StringType()
             return StringType()
         elif ctx.op in['<','<=','>','>=','!=','=']: ## operantype is numbertype, return type is booltype
-            if type(right) is not NoneType and type(right) is not NoneType:
-                if not (type(right) is NumberType and type(left) is NumberType):
-                    raise TypeMismatchInExpression(ctx)
+            if type(right) not in [NoneType,NumberType] or type(left) not in [NoneType,NumberType]:
+                raise TypeMismatchInExpression(ctx)
             if type(left) is NoneType:
-                HelpingTools.inferType(ctx.left.name,NumberType(),o)
+                if type(ctx.left) is CallExpr:
+                    HelpingTools.inferType(ctx.left.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.left.name,NumberType(),o)
                 left = NumberType()
             if type(right) is NoneType:
-                HelpingTools.inferType(ctx.right.name,NumberType(),o)
+                if type(ctx.right) is CallExpr:
+                    HelpingTools.inferType(ctx.right.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.right.name,NumberType(),o)
                 right = NumberType()
             return BoolType()
         elif ctx.op in['==']:   ## operantype is numbertype or stringtype, return type is booltype
-            if type(right) is not NoneType and type(right) is not NoneType:
-                if not (type(right) is StringType and type(left) is StringType):
-                    raise TypeMismatchInExpression(ctx)
+            if type(right) not in [NoneType,StringType] or type(left) not in [NoneType,StringType]:
+                raise TypeMismatchInExpression(ctx)
             if type(left) is NoneType:
-                HelpingTools.inferType(ctx.left.name,StringType(),o)
+                if type(ctx.left) is CallExpr:
+                    HelpingTools.inferType(ctx.left.name.name,NumberType(),o)
+                else:
+                    HelpingTools.inferType(ctx.left.name,StringType(),o)
                 left = StringType()
             if type(right) is NoneType:
-                HelpingTools.inferType(ctx.right.name,StringType(),o)
+                if type(ctx.right) is CallExpr:
+                    HelpingTools.inferType(ctx.right.name.name,NumberType(),o)
+                else:
+                    HelpingTools.inferType(ctx.right.name,StringType(),o)
                 right = StringType()
             return BoolType()
+        #HelpingTools.printO(o)
         raise TypeMismatchInExpression(ctx)
-    def Unop(self,ctx,o):
+    def visitUnaryOp(self,ctx,o):
         operand = self.visit(ctx.operand,o)
+        if type(operand) is CannotInferType:
+            return CannotInferType()
+        #print('Unaryop: ', operand)
         if ctx.op in ['-','+']:
-            if type(operand) is not NoneType:
-                if not type(operand) is NumberType:
+            if type(operand) not in [NoneType,NumberType]:
                     raise TypeMismatchInExpression(ctx)
             else:
-                HelpingTools.inferType(ctx.operand.name,NumberType(),o)
+                if type(ctx.operand) is CallExpr:
+                    HelpingTools.inferType(ctx.operand.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.operand.name,NumberType(),o)
                 operand = NumberType()
             return NumberType()
         elif ctx.op in ['not']:
-            if type(operand) is not NoneType:
-                if not type(operand) is BoolType:
-                    raise TypeMismatchInExpression(ctx)
+            
+            if type(operand) not in [NoneType,BoolType]:
+                raise TypeMismatchInExpression(ctx)
             else:
-                HelpingTools.inferType(ctx.operand.name,BoolType(),o)
+                if type(ctx.operand) is CallExpr:
+                    HelpingTools.inferType(ctx.operand.name.name,NumberType(),o,True)
+                else:
+                    HelpingTools.inferType(ctx.operand.name,BoolType(),o)
                 operand = BoolType()
             return BoolType()
 
@@ -479,13 +633,17 @@ class StaticChecker(BaseVisitor, Utils):
     def visitArrayCell(self,ctx:ArrayCell,o:object):
         arr=self.visit(ctx.arr,o)
         if type(arr) is NoneType:       ## if arr is NoneType, can not infer type of arr
-            raise TypeCannotBeInferred(ctx)  
+            return CannotInferType()  
         elif type(arr) is not ArrayType: ## if arr is not ArrayType, raise error
             raise TypeMismatchInExpression(ctx)
         for i in ctx.idx:
             idx=self.visit(i,o)
-            if type(idx) is NoneType:
-                HelpingTools.inferType(i.name,NumberType(),o)
+            if type(idx) is CannotInferType:
+                return CannotInferType()
+            elif type(idx) is NoneType:
+                if type(i) is CallExpr:
+                    HelpingTools.inferType(i.name.name,NumberType(),o,True)
+                HelpingTools.inferType(i.name.name,NumberType(),o)
             elif type(idx) is not NumberType:
                 raise TypeMismatchInExpression(ctx)
         if len(ctx.idx) > len(arr.size):   ## invalid subscript
@@ -494,7 +652,11 @@ class StaticChecker(BaseVisitor, Utils):
             return ArrayType(arr.size[len(ctx.idx):],arr.eleType)
         return arr.eleType
     def visitCallExpr(self,ctx:CallExpr,o:object):
-        Id = helpingTools.customVisitId(ctx.name,o,True)
+        #print('callExpr')
+        #HelpingTools.printO(o)
+        Id = HelpingTools.customVisitId(ctx.name.name,o,True)
+        # for i in Id.param:
+        #     print(type(i))
         if type(Id) is not FunctionType:
             raise TypeMismatchInExpression(ctx)
         if type(Id.returnType) is VoidType:
@@ -503,9 +665,14 @@ class StaticChecker(BaseVisitor, Utils):
             raise TypeMismatchInExpression(ctx)
         for i in range(0,len(ctx.args)):
             arg = self.visit(ctx.args[i],o)
-            if type(arg) is NoneType:
+            if type(arg) is CannotInferType:
+                return CannotInferType()
+            elif type(arg) is NoneType:
+                if type(i) is CallExpr:
+                    HelpingTools.inferType(i.name.name,Id.param[i],o,True)
                 HelpingTools.inferType(ctx.args[i].name,Id.param[i],o)
             elif not HelpingTools.checkPriTypeEquivalent(arg,Id.param[i]):
+                #print('go here!!!')
                 raise TypeMismatchInExpression(ctx)
         return Id.returnType
     def visitNumberLiteral(self,ctx:NumberLiteral,o:object):
@@ -519,6 +686,7 @@ class StaticChecker(BaseVisitor, Utils):
         #HelpingTools.printO(o)
         names=[]
         result= HelpingTools.GetArrayType(ctx,names,o) 
+        #print('result: ',result)
         #print('result: ',result)
         #print(type(result.eleType) is NoneType)
         #print(ctx)

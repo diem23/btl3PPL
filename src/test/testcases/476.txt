@@ -1,0 +1,16 @@
+
+            func f()
+        begin
+            var i <- 0
+            for i until i > 10 by i
+            begin
+            
+            end
+            continue
+        end
+        func main()
+        begin
+            number x <- 2 + true
+            writeNumber(x)
+        end
+            

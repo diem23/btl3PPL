@@ -1,6 +1,10 @@
 
-    dynamic a
-    dynamic b
-    dynamic c
-    number arr[2, 2] <- [[a, b]]
-    ## number c[2, 2] <- arr
+        func main()
+        begin
+            bool b <- true
+            number i
+            for b until i<10 by i*2
+            begin
+            end
+        end
+            

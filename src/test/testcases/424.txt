@@ -1,0 +1,9 @@
+
+            func main() 
+            begin 
+            end
+            func foo(number a)
+            begin
+                a <- 2
+            end
+            

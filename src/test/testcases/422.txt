@@ -1,0 +1,6 @@
+func main()
+        begin
+            var a <- 2
+            var b <- a + 2
+        end
+            

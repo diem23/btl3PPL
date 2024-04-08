@@ -1,0 +1,8 @@
+
+            func f(number x)
+            
+            func main()
+            begin
+                number a <- f(2) + 1
+            end
+        

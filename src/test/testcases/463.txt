@@ -1,0 +1,16 @@
+
+        func foo(number a,number b,number c, number d)
+        begin
+            return 0
+        end
+        func main()
+        begin
+            number i
+            number f
+            f <- f+i
+            begin
+                f <- foo(i,f,f,i) ## infer: foo->number,a->number,b->number,c->number
+            end
+            f <- foo(1,2.0,3.0,1)
+        end
+            

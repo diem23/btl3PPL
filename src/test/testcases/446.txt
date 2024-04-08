@@ -1,0 +1,10 @@
+
+        number b1
+        func main()
+        begin
+            bool a[5]
+            bool b1 
+            bool b2
+            a <- [b1,b2]
+        end
+            

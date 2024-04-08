@@ -1,0 +1,9 @@
+
+        func foo1() return 2
+        func foo2() return 3
+        func main()
+        begin
+            number a[2] <- [ foo1(), foo2()]
+            writeNumber(foo1())
+        end
+            

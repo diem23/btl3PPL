@@ -1,0 +1,14 @@
+
+            func foo(number x)
+            begin
+                return
+            end
+            
+            func main()
+            begin
+                number x <- 2
+                dynamic y
+                y <- foo(x)
+            end
+            
+            

@@ -1,0 +1,10 @@
+func main()
+            begin
+            end
+            func foo (number a)
+            begin
+            end
+            func a (number foo)
+            begin
+            end
+            

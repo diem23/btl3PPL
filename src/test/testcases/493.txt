@@ -1,0 +1,9 @@
+
+        func x() return
+        func main()
+        begin
+            number a[2, 3]
+            number b <- a[0, 0]
+            dynamic c <- a[0]
+        end
+            

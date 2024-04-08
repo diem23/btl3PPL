@@ -1,0 +1,7 @@
+
+        func main()
+        begin
+            string a
+            a <- -a
+        end
+            

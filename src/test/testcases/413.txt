@@ -1,10 +1,5 @@
-
-dynamic a
-    dynamic b
-    dynamic c
-    dynamic d
-    dynamic e
-    var x <- [a, [b], [[c]], [[[d, e]]] ]
-    ##c <- [-10, 2 / 3 % 0.75]
-    ##b <- [c]
-    ##a <- [b]
+func main()
+        begin
+            number main
+        end
+            

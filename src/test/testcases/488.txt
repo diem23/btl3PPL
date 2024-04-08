@@ -1,0 +1,8 @@
+
+        func foo(number a) return "vankha"
+        func main()
+        begin
+            number a[2,3]
+            a[1,2,3] <- 1
+        end
+            

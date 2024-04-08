@@ -1,0 +1,14 @@
+
+        func foo()
+        func bar()
+        func main()
+        begin
+            number a[3,4]
+            a[foo(), 1+4] <- 222
+            a[1,2] <- bar()
+            writeNumber(foo())
+            writeNumber(bar())
+        end
+        func foo() return 1
+        func bar() return 2
+            

@@ -1,0 +1,7 @@
+
+        func main()
+        begin
+            number a[1,2,3]
+            number x <- a[1]
+        end
+            

@@ -1,0 +1,7 @@
+
+            number a[3] <- [2,3,4]
+            func main()
+            begin
+                a[3] <- "error here"
+            end
+            

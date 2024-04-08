@@ -1,0 +1,9 @@
+
+        func check()
+        begin
+        end
+        func main()
+        begin
+            foo()
+        end
+            

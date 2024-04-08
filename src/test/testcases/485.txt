@@ -1,10 +1,3 @@
 
-dynamic a
-    dynamic b
-    dynamic c
-    dynamic d
-    var e <- 1
-    var x <- [a, [b], [[c]], [[[d, e]]]]
-    ##c <- [-10, 2 / 3 % 0.75]
-    ##b <- [c]
-    ##a <- [b]
+        func inc(number a) return a+1
+            

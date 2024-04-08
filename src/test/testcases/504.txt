@@ -1,0 +1,11 @@
+
+            func f(number x)
+            func f(number x) return 1
+            func f(number x)
+            func f(number x)
+            
+            func main()
+            begin
+                number a <- f(2) + 1
+            end
+        

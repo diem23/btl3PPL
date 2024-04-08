@@ -1,0 +1,19 @@
+
+        func foo()
+        begin
+            return 1
+        end
+        
+        func check()
+        begin
+            return 2
+        end
+        
+        func main()
+        begin
+            number a
+            begin
+                a <- foo() + 5
+            end
+        end
+            

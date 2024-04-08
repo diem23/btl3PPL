@@ -1,0 +1,10 @@
+
+        number x
+        number y
+        func f(number a[10], number x)
+        func f(number a[5], number x)
+            return x
+        
+        func main()
+            return
+        

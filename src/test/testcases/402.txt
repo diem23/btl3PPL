@@ -1,4 +1,5 @@
-
-        string b
-        var a <- [[1,2,4],[1,2,3],[b,b,b]]
+func main() 
+            begin
+                return 1
+            end
         

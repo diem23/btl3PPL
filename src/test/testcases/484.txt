@@ -1,0 +1,8 @@
+
+        func foo(number a, number b) return 1.2
+        func main()
+        begin
+            foo(1,2) ## error here because foo returns number type, not void
+            number a <- foo(1,2) + 1
+        end
+            

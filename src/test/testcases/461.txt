@@ -1,0 +1,18 @@
+
+        func foo(number a,number b,number c)
+        begin
+            return 0.0
+        end
+        
+        func bar()
+        begin
+        end
+        
+        func main()
+        begin
+            number i
+            number f
+            f <- foo(i,f,f)+f ## infer: foo->number, a->number, b->number, c->number
+            f <- foo(1,"2",3.0) ## invalid: param 2 mismatch
+        end
+            

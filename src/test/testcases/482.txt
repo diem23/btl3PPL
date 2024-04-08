@@ -1,0 +1,8 @@
+
+        func foo(number a, number b) return 1.2
+        func main()
+        begin
+            number a <- foo(1,2)
+            writeNumber(foo(1,2))
+        end
+            

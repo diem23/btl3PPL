@@ -1,0 +1,10 @@
+
+        func main()
+        begin
+            bool b
+            number i
+            if(b) 
+            begin
+            end
+        end
+            

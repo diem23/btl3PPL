@@ -1,0 +1,8 @@
+
+        func main()
+        begin
+            number a <- 1
+            number b <- a + 2
+            string c <- 2.3
+        end
+            

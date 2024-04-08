@@ -1,0 +1,12 @@
+
+        func foo()
+        func main()
+        begin
+            number a
+            a <- foo() + 5
+        end
+        func foo()
+        begin
+           return 1
+        end
+            

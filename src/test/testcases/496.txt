@@ -1,0 +1,15 @@
+
+        func foo(number a) begin
+            writeNumber(a)
+            number c <- 109
+        end
+        
+        func main() begin
+            foo(2018)
+            goo(20, 1998)
+        end
+        
+        func goo(number a, number b) begin            
+            foo(3)
+        end
+         

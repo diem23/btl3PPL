@@ -1,0 +1,10 @@
+
+        func main()
+        begin
+            number a[5]
+            string s
+            a[3] <- 2.5
+            a[2] <- 5
+            a[1] <- s
+        end
+            

@@ -1,0 +1,12 @@
+
+        func foo(number a,number b,number c, number d)
+        begin
+            a <- 5
+            return a ## foo->number
+        end
+        func main()
+        begin
+            var f <- foo(1,2,3,4) ## f->number
+            f <- f + "wrong"
+        end
+            

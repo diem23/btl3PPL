@@ -1,0 +1,9 @@
+
+            func inc(number a) 
+            func main()
+            begin
+                string c <- "hello world" 
+                var x <- inc(3)...c 
+            end 
+            func inc(number a) return a+1 
+            

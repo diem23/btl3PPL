@@ -1,0 +1,9 @@
+
+        string a[5]
+        func main()
+        begin
+            number i1 <- 25
+            number f2 <- 25.0
+            a <- [i1,f2]
+        end
+            

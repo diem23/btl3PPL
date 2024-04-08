@@ -1,0 +1,6 @@
+func main()
+        begin
+            number a
+            a <- foo() + 5
+        end
+            

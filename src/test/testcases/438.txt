@@ -1,0 +1,10 @@
+
+        func main()
+        begin
+            dynamic a
+            dynamic b
+            a <- 1
+            dynamic c
+            c <- a + b
+        end
+            

@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+                number arr <- 2
+                main()
+            end
+            

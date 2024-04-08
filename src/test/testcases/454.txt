@@ -1,0 +1,10 @@
+
+        func main()
+        begin
+            bool b
+            var i <- 0
+            for i until i<10 by i+1
+            begin
+            end
+        end
+            

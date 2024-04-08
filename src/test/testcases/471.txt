@@ -1,0 +1,8 @@
+
+            func main()
+            begin
+                dynamic c
+                dynamic d
+                d <- c
+            end
+            

@@ -1,9 +1,8 @@
-
-        dynamic t
-        dynamic b
-        dynamic c
-        dynamic d
-        dynamic e
-        dynamic f
-        number a[2.0,3.0,2.0] <- [[[b,c],[d,d],[t,f]],[[e,e],[e,t],[f,d]]]
-        
+ number a
+            number b
+            func main()
+            begin
+                number a
+            end
+            number b
+            

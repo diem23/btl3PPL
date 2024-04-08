@@ -1,0 +1,7 @@
+
+        func x() return
+        func main()
+        begin
+            super()
+        end
+            

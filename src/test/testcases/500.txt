@@ -1,5 +1,9 @@
-func main ()
-        begin
-            writeNumber(1)
-        end
+
+            func f(number a) return 1
+            func f(number x)
+            
+            func main()
+            begin
+                number a <- f(2) + 1
+            end
         

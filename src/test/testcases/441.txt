@@ -1,0 +1,13 @@
+
+        func main()
+        begin
+            number a
+            number b
+            bool c
+            bool d
+            number e
+            c <- b > e
+            c <- e <= b
+            d <- b == e ## invalid: b==e
+        end
+            

@@ -1,0 +1,13 @@
+
+        func foo(number a, number b, number c)
+        func main()
+        begin
+            number a <- 2
+            number b <- 2.1
+            a <- foo(a,b) + 2
+        end
+        func foo(number a, number b, number c)
+        begin
+            return a+b+c
+        end
+            

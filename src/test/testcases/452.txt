@@ -1,0 +1,19 @@
+
+        func main()
+        begin
+            bool b1
+            bool b2
+            number i1
+            number i2
+            if(i1 = i2)
+            begin
+            end
+            
+            if(i1)
+            begin
+            end
+            if(b1)
+            begin
+            end
+        end
+            

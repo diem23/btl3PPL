@@ -1,0 +1,16 @@
+
+        func foo(string a, number b)
+        begin
+            if (b>0)
+            begin
+                return a ## -> string
+            end
+            return "a" ## -> string
+            return 1 ## -> dont care
+        end
+        func main()
+        begin
+            writeString(foo("Hello",2))
+        end
+        
+            

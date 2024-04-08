@@ -1,0 +1,8 @@
+func main()
+        begin
+            begin
+                number a
+            end
+            a <- 2
+        end
+            

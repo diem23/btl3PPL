@@ -1,0 +1,11 @@
+
+        func foo(number x) begin
+            number a <- 7
+        end
+        func foo1(string x, bool x) begin
+        
+        end
+        func main() begin
+        
+        end
+        

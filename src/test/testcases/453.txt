@@ -1,0 +1,17 @@
+
+        func main()
+        begin
+            bool b1
+            bool b2
+            number i
+            if (b1 and b2)
+            begin
+            end
+            elif(b1 or b2)
+            begin
+            end
+            elif (i)
+            begin
+            end
+        end
+            

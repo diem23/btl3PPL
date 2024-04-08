@@ -1,0 +1,13 @@
+
+        func main()
+        begin
+            number a
+            number b
+            number c
+            string d 
+            string e 
+            d <- d ... e ## valid
+            b <- a % c ## valid
+            a <- a == b ## invalid: a == b
+        end
+            

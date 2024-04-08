@@ -1,0 +1,15 @@
+
+        func foo()
+        begin
+            return 0
+        end
+        func main()
+        begin
+            number i 
+            number f
+            f <- f+i
+            foo() ## foo -> int (return - not auto anymore) != void (CallExpr) => INVALID !!
+            f <- f+foo(i)
+            i <- i+f
+        end
+            

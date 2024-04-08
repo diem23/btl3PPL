@@ -1,0 +1,9 @@
+
+        func main()
+        begin
+            bool b
+            dynamic c
+            number a[2, 3]
+            a <- [[c, c, c], [c, c, c]]
+        end
+            
