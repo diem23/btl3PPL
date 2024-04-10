@@ -1,1 +1,1 @@
-Type Mismatch In Statement: VarDecl(Id(a), ArrayType([5.0], NumberType), None, ArrayLit(CallExpr(Id(a), []), NumLit(2.0), NumLit(3.0), NumLit(4.0), NumLit(5.0)))
+Type Mismatch In Statement: Return()

@@ -1,3 +1,7 @@
 
-        number a[2,3]<- [[1,2,4],[5,6,7]]
+        func b()
+        dynamic b
+        number a[2,3]<- [[b(),b,b],[b,b,b()]]
+        func b()
+        return true
         

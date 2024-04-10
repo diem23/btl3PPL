@@ -6,7 +6,7 @@ from main.zcode.utils.AST import *
 
 
 class CheckerSuite(unittest.TestCase):
-    ###invalid_arrayliteral
+    ##invalid_arrayliteral
     def test_001(self):
         input = """var a <- [[1,2],[1,2,3]]
         """
@@ -128,9 +128,13 @@ dynamic a
         self.assertTrue(TestChecker.test(input, expect, 413)) 
     def test014(self):
         input = """
-        number a[2,3]<- [[1,2,4],[5,6,7]]
+        func b()
+        dynamic b
+        number a[2,3]<- [[b(),b,b],[b,b,b()]]
+        func b()
+        return true
         """
-        result="No Entry Point"
+        result="Type Mismatch In Statement: Return(BooleanLit(True))"
         self.assertTrue(TestChecker.test(input,result,414))
     def test015(self):
         input ="""
@@ -152,7 +156,7 @@ dynamic a
         func a()
             return
     """
-        expect="Type mismatch in statement: Return()"
+        expect="Type Mismatch In Statement: Return()"
         self.assertTrue(TestChecker.test(input,expect,416))
     def test017(self):
         input="""
@@ -501,12 +505,12 @@ dynamic a
         """
         expect="Type Mismatch In Statement: AssignStmt(Id(a), CallExpr(Id(happy), []))"
         self.assertTrue(TestChecker.test(input,expect,440))
-    ## test Expression: 20
+    # test Expression: 20
     
-    # test break,cont: 10
-    # test if,for,CallStmt: 10
-    # test CallExpr,ArrayCell:10
-    # complex test: 10
+    ####test break,cont: 10
+    #####test if,for,CallStmt: 10
+    #####test CallExpr,ArrayCell:10
+    #####complex test: 10
     
     
     

@@ -24,6 +24,8 @@ class HelpingTools:
         return False
     def inferType(name,Type,o,checkFunction=False):
         #print(name,Type)
+        ####print("INFERTYPE!!!!!")
+        ###print(name,Type,checkFunction)
         if type(name) is not str:
             name=name.name
         for scope in o:
@@ -144,25 +146,38 @@ class HelpingTools:
                 #print(item[i],nameIth)
                 #print(typEle)
                 #print(names)
+                ###print('names: ',names)
                 #print(type(firstEleTyp),type(typEle))
                 if type(firstEleTyp) is NoneType  and type(typEle) is not NoneType: ## neu kieu du lieu cua phan tu dau tien la NoneType thì tất cả các phần tử đầu tiên đến trước phần tử hiện tại đều là NoneType
                     #print('go in here!!!')
                     #print('names: ',names)
                     for i in names:         ## names là list chứa các biến có kiểu dữ liệu là NoneType hoặc ArrayType có eleType là NoneType tư phần tử đầu tiên đến trước phần tử hiện tại
-                        HelpingTools.inferType(i,typEle,o)              ## cập nhật kiểu cho tất cả các phần tử đầu tiên đến trước phần tử hiện tại
+                        if type(i["typ"]) is CallExpr:
+                            HelpingTools.inferType(i["name"],typEle,o,True)
+                        else:
+                            HelpingTools.inferType(i["name"],typEle,o)              ## cập nhật kiểu cho tất cả các phần tử đầu tiên đến trước phần tử hiện tại
+
                     firstEleTyp=typEle  
                     if type(typEle) is ArrayType and type(typEle.eleType) is NoneType:    ## neu kieu du lieu cua phan tu hien tai la ArrayType va eleType la NoneType thi thêm vào names để cập nhật kiểu sau này
                         #print('firstEleTyp: ',firstEleTyp)
                         for i in nameIth:    ## co the sai neu co function trong array
-                            if i not in names:
-                                names+=[i]
+                            for j in names:
+                                ###print(j["name"],i["name"])
+                                if not (j["name"] == i["name"] and j["typ"] == i["typ"]):
+                                    names+=[{"name":i["name"],"typ":i["typ"]}]
+                                
                 elif type(firstEleTyp) is not NoneType and type(typEle) is NoneType:    
                     for i in nameIth:       ## nameIth là list chứa các biến có kiểu dữ liệu là NoneType hoặc ArrayType có eleType là NoneType ở phần tử hiện tại
-                        HelpingTools.inferType(i,firstEleTyp,o)
+                        if type(i["typ"]) is CallExpr:
+                            HelpingTools.inferType(i["name"],firstEleTyp,o,True)
+                        else:
+                            HelpingTools.inferType(i["name"],firstEleTyp,o)
                     if type(firstEleTyp) is ArrayType and type(firstEleTyp.eleType) is NoneType:
                         for i in nameIth:    ## co the sai neu co function trong array
-                            if i not in names:
-                                names+=[i]
+                            for j in names:
+                                ####print(j["name"],i["name"])
+                                if not (j["name"] == i["name"] and j["typ"] == i["typ"]):
+                                    names+=[{"name":i["name"],"typ":i["typ"]}]
                         
                 elif type(firstEleTyp) is not NoneType and type(typEle) is not NoneType:    ## neu ca 2 kieu du lieu khong phai la NoneType
                     if type(firstEleTyp) is ArrayType and type(typEle) is ArrayType: ## nếu cả 2 là ArrayType!!!
@@ -179,20 +194,32 @@ class HelpingTools:
                                 #print('go here!!!')                    ## Hoặc array có eleType không phải là Nonetype phải được suy ra từ array còn lại (TH hai len bằng nhau)
                                 firstEleTyp=typEle
                                 for i in names:
-                                    HelpingTools.inferType(i,temp,o)
+                                    if type(i["typ"]) is CallExpr:
+                                        HelpingTools.inferType(i["name"],temp,o,True)
+                                    else:
+                                        HelpingTools.inferType(i["name"],temp,o)
                             else:
                                 for i in nameIth:
-                                    HelpingTools.inferType(i,temp,o)
+                                    if type(i["typ"]) is CallExpr:
+                                        HelpingTools.inferType(i["name"],temp,o,True)
+                                    else:
+                                        HelpingTools.inferType(i["name"],temp,o)
                         if type(typEle) is ArrayType and type(typEle.eleType) is NoneType:    ## neu kieu du lieu cua phan tu hien tai la ArrayType va eleType la NoneType thi thêm vào names để cập nhật kiểu sau này
                             for i in nameIth:    ## co the sai neu co function trong array
-                                if i not in names:
-                                    names+=[i] 
+                                for j in names:
+                                    ####print(j["name"],i["name"])
+                                    if not (j["name"] == i["name"] and j["typ"] == i["typ"]):
+                                        names+=[{"name":i["name"],"typ":i["typ"]}] 
                     elif not HelpingTools.checkPriTypeEquivalent(firstEleTyp,typEle): ## nếu cả 2 không phải đồng thời là ArrayType thì kiểm tra xem chúng có tương đương nhau không
                         return False
                 else:  ## neu ca hai la NoneType thi lay ten Id de cap nhat kieu du lieu sau nay
                     for i in nameIth:    ## co the sai neu co function trong array
-                        if i not in names:
-                            names+=[i]
+                        for j in names:
+                            ###print (item)
+                            ###print (names)
+                            ####print(j["name"],i["name"])
+                            if not (j["name"] == i["name"] and j["typ"] == i["typ"]):
+                                names+=[{"name":i["name"],"typ":i["typ"]}]
             #print(names)
             if type(firstEleTyp) is ArrayType:
                 return ArrayType([float(len(item.value))]+firstEleTyp.size,firstEleTyp.eleType) ## 
@@ -202,15 +229,22 @@ class HelpingTools:
         else: 
             getType= StaticChecker(item).visit(item,o)
             if type(getType) is NoneType :  ## gap Id voi kieu du lieu chua xac dinh
-                names+=[item.name]
+                if type(item) is CallExpr:
+                    names+=[{"name":item.name.name,"typ":item}]
+                else:
+                    names+=[{"name":item.name,"typ":item}]
             return getType
     def customVisitId(name,o,isFunction=False):
+        
+        ##print('customVisitId: ',name)
         for scope in o:
             for i in scope:
                 if i.name == name:
                     if isFunction and type(i.mtype) is FunctionType:
+                        
                         return i.mtype
                     if not isFunction and type(i.mtype) is not FunctionType:
+                        ##print(i.mtype)
                         return i.mtype
         if isFunction:
             raise Undeclared(Function(),name)
@@ -266,6 +300,7 @@ class StaticChecker(BaseVisitor, Utils):
                 o[0]+= [Symbol(ctx.name.name,NoneType())]
         else: 
             o[0]+=[Symbol(ctx.name.name,ctx.varType)]
+            #HelpingTools.printO(o)
         if type(ctx.varInit) != type(None):
             names=False
             if type(ctx.varInit) is ArrayLiteral:
@@ -273,7 +308,9 @@ class StaticChecker(BaseVisitor, Utils):
                 #print(rhs,names)
             else: 
                 rhs=self.visit(ctx.varInit,o)
+            #print('init: ',rhs)
             lhs=self.visit(ctx.name,o)
+            #print('lhs: ',lhs)
             if type(rhs) is CannotInferType:
                 raise TypeCannotBeInferred(ctx)
             elif type(rhs) is NoneType and type(lhs) is NoneType:   ## both are NoneType
@@ -300,7 +337,9 @@ class StaticChecker(BaseVisitor, Utils):
                         raise TypeMismatchInStatement(ctx)
                     if names != False:      ## Loại trừ TH vế phải trả về arrayType nhưng nó ko phải là arrayLiteral (kết quả trả về từ một func)
                         for i in names:
-                                HelpingTools.inferType(i,lhs.eleType,o)
+                            if type(i["typ"]) is CallExpr:
+                                HelpingTools.inferType(i["name"],lhs.eleType,o,True)
+                            HelpingTools.inferType(i["name"],lhs.eleType,o)
         #print('VarDecl')
         #HelpingTools.printO(o)
         return (VoidType(),ctx)
@@ -672,8 +711,8 @@ class StaticChecker(BaseVisitor, Utils):
             raise TypeMismatchInExpression(ctx)
         for i in range(0,len(ctx.args)):
             arg = self.visit(ctx.args[i],o)
-            print (ctx.args[i])
-            print(arg, Id.param[i])
+            ##print (ctx.args[i])
+            ##print(arg, Id.param[i])
             if type(arg) is CannotInferType:
                 return CannotInferType()
             elif type(arg) is NoneType:
