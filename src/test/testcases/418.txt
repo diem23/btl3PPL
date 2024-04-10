@@ -1,7 +1,9 @@
-func main() 
-            begin
-            end
-            func foo(number main)
-            begin
-            end
-            
+
+        dynamic a
+        dynamic b
+        dynamic c
+        dynamic d
+        dynamic e
+        dynamic f
+        var g <-[a,[b],[[c,d,e]]]
+        

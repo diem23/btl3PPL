@@ -1,9 +1,15 @@
 
+        func hehe1(number a, number b, number c[1,2,3])
+        begin
+            dynamic t
+            dynamic hehe1 <- [c,t]
+            return hehe1
+        end
+        
         func main()
         begin
-            number a 
-            string b
-            ## a + b: Unknown a: number
-            a <- a + b
+            dynamic a
+            hehe1(1,1,a)
         end
-            
+        
+        

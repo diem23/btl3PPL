@@ -1,8 +1,12 @@
 
+        func hehe(number a)
+        func hehe1(number a)
+        return true
+        
         func main()
-        begin
-            number a <- 1
-            number b <- a + 2
-            string c <- 2.3
-        end
-            
+        return 3
+        func hehe(number t)
+        return t
+        func hehe1(number t)
+        return t
+        

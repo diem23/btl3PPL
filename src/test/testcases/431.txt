@@ -1,8 +1,10 @@
 
+        func hehe()
+        func hehe1(number a, number b)
         func main()
+        return 0
+        func hehe1(number c, number d)
         begin
-            number a
-            number b
-            b <- a[5]
         end
-            
+        
+        

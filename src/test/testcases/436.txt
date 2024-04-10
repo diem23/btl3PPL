@@ -1,7 +1,14 @@
 
+        func test1()
+        func test2()
+        func test3()
+        func test(number test1, string test2, bool test3)
+        begin
+            return (test1 > test1()) and (test2 == test2()) or (test3 and test3())
+        end
         func main()
         begin
-            string a
-            a <- -a
+            return test(1,"abc",true)
         end
-            
+
+        

@@ -1,6 +1,9 @@
-func main()
-        begin
-            a <- 2
-            return
-        end
-            
+
+        dynamic a
+        dynamic b
+        dynamic c
+        dynamic d
+        dynamic e
+        dynamic f
+        string g[6,99,100,101] <-[a,b,c,d,e,f]
+        

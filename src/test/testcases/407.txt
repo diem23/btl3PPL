@@ -1,7 +1,2 @@
- number a
-            func main()
-            begin
-                string a
-                return
-            end
-            
+number a[2,3] <- [[2,3],[2,3]]
+        

@@ -1,1 +1,1 @@
-Type Mismatch In Expression: UnaryOp(not, Id(a))
+Type Mismatch In Expression: ArrayCell(Id(t), [CallExpr(Id(test), []), CallExpr(Id(test), [])])

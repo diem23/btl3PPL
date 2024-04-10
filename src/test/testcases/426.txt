@@ -1,6 +1,10 @@
-func main()
+
+        func hehe()
+        func main()
         begin
-            number a
-            a <- foo() + 5
+            number a[2,3]
+            a[hehe(),hehe()]<-hehe()
+            a[hehe()]<-[hehe(),hehe(),hehe()]
+            a[hehe()]<-[hehe(),hehe(),hehe(),hehe()]
         end
-            
+        

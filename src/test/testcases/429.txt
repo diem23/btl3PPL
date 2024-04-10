@@ -1,14 +1,15 @@
 
-            func foo(number x)
-            begin
-                return
-            end
+        func hehe()
+        func hehe1()
+        func main()
+        begin
+            number a[2,3]
+            a[hehe(),hehe()]<-hehe()
+            a[hehe()]<-[hehe(),hehe(),hehe()]
             
-            func main()
-            begin
-                number x <- 2
-                dynamic y
-                y <- foo(x)
-            end
-            
-            
+        end
+        func hehe()
+        begin
+            return 1
+        end
+        

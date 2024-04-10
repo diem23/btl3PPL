@@ -1,1 +1,1 @@
-['s', 'u', 'c', 'c', 'e', 's', 's', 'f', 'u', 'l']
+Type Mismatch In Statement: VarDecl(Id(c), None, var, ArrayLit(Id(c), Id(c), Id(c), Id(c), Id(d)))

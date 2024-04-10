@@ -1,6 +1,13 @@
-number a
+
+        func a1(number a,number b, number c)
         func main()
         begin
-            a <- 2
+            number a <- 1
+            a1(1,2,3)
         end
-            
+        func a(number a,number b, number c)
+        begin
+            a<-a1(a,b,c)
+            return "lo ve du"
+        end
+        

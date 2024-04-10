@@ -1,1 +1,1 @@
-Type Mismatch In Expression: BinaryOp(and, Id(a), Id(b))
+Type Mismatch In Statement: AssignStmt(Id(a), CallExpr(Id(happy), []))

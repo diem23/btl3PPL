@@ -1,8 +1,17 @@
-func main()
+
+        func test()
+        func main()
+        begin
+            number a[2,3]<- test()
+        end
+        func test()
         begin
             begin
-                number a
+                begin
+                    begin
+                        return 1
+                    end
+                end
             end
-            a <- 2
         end
-            
+        

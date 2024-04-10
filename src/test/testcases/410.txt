@@ -1,16 +1,9 @@
 
-        func f()
-        begin
-            var j <- 1
-            for j until j > 11 by 1
-            begin
-            
-            end
-            break
-        end
-        
-        func main()
-        begin
-            f()
-        end
+        dynamic t
+        dynamic b
+        dynamic c
+        dynamic d
+        dynamic e
+        dynamic f
+        number a[2.0,3.0,2.0] <- [[[1,c],[3,d],[t,f]],[[b,9],[e,t],[2,d]]]
         

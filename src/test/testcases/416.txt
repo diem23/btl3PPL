@@ -1,7 +1,10 @@
-func main() 
-            begin
-            end
-            func foo (number a, string a)
-            begin
-            end
-            
+
+        func a()
+        number a
+        func main()
+        begin
+            number a[5] <- [a(),2,3,4,5]
+        end
+        func a()
+            return
+    

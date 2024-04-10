@@ -1,6 +1,5 @@
-func main()
-            begin
-                number a
-                string a
-            end
-            
+
+        dynamic ans
+        dynamic temp <- "abc"
+        var a <- [[1,2],[1,ans],[temp,ans]]
+        

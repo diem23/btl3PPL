@@ -1,6 +1,5 @@
-func main()
-        begin
-            var a <- 2
-            var b <- a + 2
-        end
-            
+
+        func a(number a,number b, number b)
+        func main()
+        return 0
+        

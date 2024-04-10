@@ -1,1 +1,1 @@
-['s', 'u', 'c', 'c', 'e', 's', 's', 'f', 'u', 'l']
+Type Cannot Be Inferred: VarDecl(Id(c), None, var, ArrayLit(Id(a), ArrayLit(Id(a)), ArrayLit(ArrayLit(Id(a), Id(a), Id(a)))))

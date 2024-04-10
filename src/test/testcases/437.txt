@@ -1,7 +1,9 @@
 
+        func test()
+        return true
         func main()
         begin
-            number a
-            a <- not a
+            string t[2,3]
+            dynamic a <- t[test(),test()]
         end
-            
+        

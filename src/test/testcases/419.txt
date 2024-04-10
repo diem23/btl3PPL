@@ -1,10 +1,7 @@
-func main()
-            begin
-            end
-            func foo (number a)
-            begin
-            end
-            func a (number foo)
-            begin
-            end
-            
+
+       
+        
+       
+        number d
+        var c <-[c,c,c,c,d]   ## visit bien truoc roi moi visit init value
+        

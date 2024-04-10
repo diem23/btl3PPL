@@ -1,8 +1,4 @@
-func main()
-            begin
-                number a
-                number b
-                string c
-                bool b
-            end
-            
+
+        dynamic ans
+        number a[3.0,4.0] <- [[ans,ans,ans,ans],[1,2,ans,4],[1,2,3,4]]
+        

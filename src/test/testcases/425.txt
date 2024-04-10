@@ -1,9 +1,10 @@
 
-        func check()
-        begin
-        end
+        func test(number a, string b)
         func main()
-        begin
-            foo()
-        end
-            
+            begin
+            dynamic a
+            dynamic b
+                a <-test(test(a,b),test(a,b))
+            end
+        
+        

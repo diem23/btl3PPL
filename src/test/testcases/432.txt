@@ -1,8 +1,14 @@
 
-        func main()
+       
+        func hehe1(number a, number b)
         begin
-            number a[5, 5]
-            number b
-            b <- a[1.0,"1"]
+            number c[2,3]
+            begin 
+                number a <- 1
+            end
+            number a <- a
         end
-            
+        func main()
+            return 0
+        
+        

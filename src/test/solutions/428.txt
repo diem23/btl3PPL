@@ -1,1 +1,1 @@
-Type Mismatch In Statement: AssignStmt(ArrayCell(Id(a), [NumLit(3.0)]), StringLit(error here))
+Type Mismatch In Statement: Block([AssignStmt(Id(hehe), CallExpr(Id(hehe1), [Id(hehe), Id(hehe)])), AssignStmt(Id(hehe1), BinaryOp(+, CallExpr(Id(hehe1), [Id(hehe1), CallExpr(Id(hehe1), [Id(hehe1), Id(hehe1)])]), CallExpr(Id(hehe), [Id(hehe1), CallExpr(Id(hehe1), [Id(hehe1), Id(hehe)])])))])

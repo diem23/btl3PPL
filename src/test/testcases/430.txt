@@ -1,8 +1,16 @@
 
+        func hehe()
+        func hehe1()
         func main()
         begin
-            number a[5]
-            number b
-            b <- a[5]
-        end
+            number a[2,3]
+            a[hehe(),hehe()]<-hehe()
+            a[hehe()]<-[hehe(),hehe(),hehe()]
             
+        end
+        func hehe(number hehe1, string hehe, number hehe2)
+        begin
+            hehe<- hehe...hehe
+            return hehe1
+        end
+        

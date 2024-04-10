@@ -1,1 +1,1 @@
-Undeclared Function: foo
+Type Mismatch In Statement: AssignStmt(ArrayCell(Id(a), [CallExpr(Id(hehe), [])]), ArrayLit(CallExpr(Id(hehe), []), CallExpr(Id(hehe), []), CallExpr(Id(hehe), []), CallExpr(Id(hehe), [])))

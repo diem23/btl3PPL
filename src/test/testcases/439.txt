@@ -1,13 +1,15 @@
 
+        func happy(string a, string b)
+        begin
+            a <- "Vi ngay em dep nhat"
+            b <- "La ngay anh mat em"
+            return a ... b
+        end
         func main()
         begin
-            number a
-            number b
-            number c
-            string d 
-            string e 
-            d <- d ... e ## valid
-            b <- a % c ## valid
-            a <- a == b ## invalid: a == b
+            dynamic a <- "Hen em kiep sau"
+            dynamic b <- "Kiep nay thoi tim den nhau"
+            happy()
         end
-            
+        return 0
+        
