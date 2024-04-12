@@ -1,13 +1,12 @@
 
-        func foo(number a, number b, number c)
-        func main()
+        func hehe()
+        func test(number a, number b)
         begin
-            number a <- 2
-            number b <- 2.1
-            a <- foo(a,b) + 2
+            number t[2,3]<- hehe()
         end
-        func foo(number a, number b, number c)
+        func hehe()
         begin
-            return a+b+c
+        number a [2,4]
+        return a 
         end
-            
+        

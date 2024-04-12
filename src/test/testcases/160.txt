@@ -1,0 +1,13 @@
+
+            func f60(number x)
+            begin
+            if (x % 2 = 0)
+            return true
+            else
+            return false
+            end
+            func main()
+            begin
+            var a60 <- not f60(readNumber())
+            end
+        

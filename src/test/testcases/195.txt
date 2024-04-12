@@ -1,0 +1,10 @@
+
+            func f(number a) return a
+            func f2(string a) return a
+            func main()
+            begin
+            dynamic a
+            a <- f(1)
+            a <- f("a")
+            end
+        

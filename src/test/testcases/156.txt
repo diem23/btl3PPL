@@ -1,0 +1,6 @@
+
+            func f()
+            string f
+            func main() return
+            func f() return
+        

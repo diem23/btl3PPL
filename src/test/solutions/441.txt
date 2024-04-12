@@ -1,1 +1,1 @@
-Type Mismatch In Expression: BinaryOp(==, Id(b), Id(e))
+Type Mismatch In Expression: BinaryOp(..., Id(d), BinaryOp(==, Id(c), Id(c)))

@@ -1,0 +1,7 @@
+
+            func f() return "ahu"
+            func main()
+            begin
+            string a <- f() ... "aaa"
+            end
+        

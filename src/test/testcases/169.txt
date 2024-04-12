@@ -1,0 +1,8 @@
+
+            func f()
+            func main()
+            begin
+            dynamic x <- f()
+            end
+            func f() return 1
+        

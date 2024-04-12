@@ -1,1 +1,4 @@
-'isn''t'
+
+            func main(string a)
+            return
+        

@@ -1,0 +1,1 @@
+Type Mismatch In Statement: For(Id(y), BinaryOp(==, Id(x), StringLit(a)), Id(x), AssignStmt(Id(x), NumLit(0.0)))

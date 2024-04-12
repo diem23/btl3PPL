@@ -1,0 +1,8 @@
+
+            func calc(number a, number b) return a + b
+            func main()
+            begin
+            var a <- calc(1, 4) * 2
+            a <- a and a
+            end
+        

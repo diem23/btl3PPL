@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            number a50[2, 3] <- [[1, 2, 3], [4, 5, 6]]
+            number b <- a50[0]
+            end
+        

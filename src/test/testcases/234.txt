@@ -1,0 +1,25 @@
+
+            dynamic z
+            func a()
+            begin
+                dynamic x
+                dynamic y
+                return 1
+                return x
+                return y
+                if (x > 5)
+                begin
+                    begin
+                        return x + y
+                    end
+                end
+                for x until x > y by 1
+                begin
+                    return z
+                end
+            end
+            func main()
+            begin
+            z <- z + 1
+            end
+        

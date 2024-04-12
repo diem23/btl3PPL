@@ -1,0 +1,7 @@
+
+            func f(number a, number b) return a + b
+            func main()
+            begin
+            dynamic x <- f(1)
+            end
+        

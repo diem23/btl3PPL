@@ -1,7 +1,6 @@
 
-        func main()
+        func test(number a, number b)
         begin
-            number a[5]
-            a <- [1,"2.0"]
+            dynamic c <- a + b > a - b and ((c ... "tam biet e nhe") == "hehe")
         end
-            
+        

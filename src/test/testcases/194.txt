@@ -1,0 +1,8 @@
+
+            func f89(number a)
+            func main()
+            begin
+            f89(1)
+            end
+            func f89(number a) return a
+        

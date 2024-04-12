@@ -1,0 +1,8 @@
+
+            string a
+            func main()
+            begin
+            number a
+            end
+            func f() return a
+        

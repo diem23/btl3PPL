@@ -1,0 +1,8 @@
+
+            func main()
+            begin
+            number x
+            if (x > 0) x <- 0
+            elif (x - 9) x <- 0
+            end
+        

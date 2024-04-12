@@ -1,0 +1,7 @@
+
+            func main(string ba, number g)
+            begin
+            number a <- 1
+            return 7
+            end
+        

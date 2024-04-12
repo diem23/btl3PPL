@@ -1,0 +1,19 @@
+
+            dynamic a
+            dynamic b117
+            dynamic c
+            func foo117()
+            begin
+                var c <- a = 5
+                if (c)
+                begin
+                    begin
+                        begin
+                        b117 <- b117 + 1
+                        end
+                    end
+                end
+                return b117
+            end
+            func main() return
+        

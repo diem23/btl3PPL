@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            a <- 1
+            number a
+            end
+        

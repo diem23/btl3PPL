@@ -1,0 +1,9 @@
+
+            func a()
+            begin
+            dynamic x
+            return x
+            return 1
+            end
+            func main() return
+        

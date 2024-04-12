@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            string x
+            for x until x == "a" by 1 x <- 0
+            end
+        

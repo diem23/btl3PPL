@@ -1,0 +1,8 @@
+
+            number a <- 1
+            number b <- 2
+            number c <- 3
+            func calc()
+            begin
+            end
+        

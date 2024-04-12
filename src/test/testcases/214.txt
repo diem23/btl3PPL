@@ -1,0 +1,6 @@
+
+            func main()
+            begin
+            dynamic b <- b
+            end
+        

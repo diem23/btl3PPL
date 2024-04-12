@@ -1,0 +1,16 @@
+
+            dynamic a
+            dynamic b
+            dynamic c
+            func f(number b)
+            begin
+                dynamic c
+                c <- not c
+                a <- c and (-b = 6)
+                return c
+            end
+            func main()
+            begin
+            c <- f(a)
+            end
+        

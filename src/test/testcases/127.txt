@@ -1,0 +1,7 @@
+
+            func main() return
+            func f(bool a27)
+            begin
+            a27 <- foo27()
+            end
+        

@@ -1,0 +1,6 @@
+
+            func main()
+            return
+            func abc12() return 1
+            func abc12() return "abc"
+        

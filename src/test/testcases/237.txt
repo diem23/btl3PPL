@@ -1,0 +1,13 @@
+
+            func main()
+            begin 
+                dynamic a127
+                dynamic b
+                dynamic c127
+                number x127[3,3] <- [a127,b,c127]
+                a127 <- [1,2,3]
+                b <- [4,5,6]
+                c127 <- [7,8,9]
+                writeNumber(a127[0] + b[0] + c127[0])
+            end
+        

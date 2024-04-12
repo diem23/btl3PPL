@@ -1,0 +1,10 @@
+
+            func foo()
+            begin
+                dynamic x113
+                for x113 until x113 > 5 by 1
+                continue
+                x113 <- x113 and x113
+            end
+            func main() return
+        

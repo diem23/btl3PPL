@@ -1,1 +1,9 @@
-int main( {}
+
+            func main()
+            begin
+            number a
+            for a until a > 5 by 5
+            continue
+            break
+            end
+        

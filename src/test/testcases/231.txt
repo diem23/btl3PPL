@@ -1,0 +1,13 @@
+
+            func main()
+            begin
+            var x <- readNumber()
+            writeNumber(x)
+            var y <- readBool()
+            writeBool(y)
+            y <- x = 4
+            string z <- readString()
+            writeString(z)
+            z <- z ... "a"
+            end
+        

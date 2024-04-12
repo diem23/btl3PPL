@@ -1,0 +1,10 @@
+
+            dynamic a
+            dynamic b
+            dynamic c
+            func main()
+            begin
+            var c <- a * b = 5
+            for a until c by c break
+            end
+        

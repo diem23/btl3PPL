@@ -1,0 +1,6 @@
+
+            func main()
+            begin
+            number a <- 123 + b * 100 / 78
+            end
+        

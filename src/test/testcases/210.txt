@@ -1,0 +1,9 @@
+
+            number a
+            func main()
+            begin
+            string a
+            a <- "abc"
+            end
+            func f() return a + 1
+        

@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            var a <- "abc" ... "aa"
+            dynamic b <- a == false
+            end
+        

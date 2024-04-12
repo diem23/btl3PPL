@@ -1,0 +1,8 @@
+
+            func main()
+            begin
+            number a
+            for b until b > 10 by 1
+            a <- b
+            end
+        

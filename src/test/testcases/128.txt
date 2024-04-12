@@ -1,0 +1,7 @@
+
+            func main() return
+            func f()
+            begin
+            a <- 123
+            end
+        

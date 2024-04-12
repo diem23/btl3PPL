@@ -1,0 +1,4 @@
+
+            func main() return
+            func readNumber() return 123
+        

@@ -1,0 +1,8 @@
+
+            func calc49(number a49, number b49) return [a49, b49]
+            func main()
+            begin
+            var arr49 <- calc49(1, 4)
+            var b <- arr49[0]
+            end
+        

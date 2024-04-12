@@ -1,0 +1,7 @@
+
+            func calc47(number a, number b) return a = b
+            func main()
+            begin
+            var a <- calc47(1, 4) * 2
+            end
+        

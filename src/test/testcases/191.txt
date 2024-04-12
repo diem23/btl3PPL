@@ -1,0 +1,12 @@
+
+            func f(number a, string b, bool c)
+            begin
+            if (a > 5) return [a + 1, a % 2]
+            elif (a % 5 = 0) return [a, a - 1]
+            else return [a * 6, a / 6]
+            end
+            func main()
+            begin
+            number temp[3] <- f(1, "a", true)
+            end
+        

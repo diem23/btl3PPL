@@ -1,0 +1,6 @@
+
+            func main()
+            begin
+            number b <- true + "hi"
+            end
+        

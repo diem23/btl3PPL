@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            abc()
+            end
+            func abc() return
+        

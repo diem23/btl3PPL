@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            string a[2]
+            string b <- a[1, 2, 3, "hi"]
+            end
+        

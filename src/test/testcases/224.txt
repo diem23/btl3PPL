@@ -1,0 +1,10 @@
+
+            func foo()
+            begin
+                dynamic x
+                dynamic a
+                for a until x by a continue
+                x <- a
+            end
+            func main() return
+        

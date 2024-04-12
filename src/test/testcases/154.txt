@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            var a <- not true
+            var b <- not 1
+            end
+        

@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            string a
+            number b <- (a + 1) = 5
+            end
+        

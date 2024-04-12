@@ -1,0 +1,8 @@
+
+            func main()
+            func abc() return 1
+            func main()
+            begin
+            number a
+            end
+        

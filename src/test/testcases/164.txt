@@ -1,0 +1,11 @@
+
+            func f62()
+            begin
+            dynamic a62
+            return a62
+            end
+            func main()
+            begin
+            var a <- f62()
+            end
+        

@@ -1,0 +1,6 @@
+
+            func main()
+            begin
+            if (abc % 5 == 0) abc <- 5
+            end
+        

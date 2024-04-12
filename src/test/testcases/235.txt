@@ -1,0 +1,9 @@
+
+            func a()
+            begin
+            end
+            func main()
+            begin
+            number a <- a()
+            end
+        

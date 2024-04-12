@@ -1,0 +1,5 @@
+
+            func main() return
+            func f(string gh, string gh)
+            func f(string gh, string a) return gh
+        

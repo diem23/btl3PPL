@@ -1,0 +1,10 @@
+
+            func main()
+            begin
+                dynamic x
+                for x until true by 1
+                begin
+                x <- x + 1
+                end
+            end
+        

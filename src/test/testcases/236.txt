@@ -1,0 +1,9 @@
+
+            func a()
+            func main()
+            begin
+            dynamic a <- a() = 5
+            var b <- (a() + 1 > 6) or (a and true)
+            end
+            func a() return false
+        

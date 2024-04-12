@@ -1,0 +1,7 @@
+
+            func f() return "abcd"
+            func main()
+            begin
+            number a <- f()[0]
+            end
+        

@@ -1,0 +1,9 @@
+
+        func main()
+        begin
+            dynamic x
+            dynamic y
+            number a138[2,2,2,2]
+            a138 <- [[[[1,2], [3,4]], [[1,2], [3,4]]], [x]]
+        end
+        

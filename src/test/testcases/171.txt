@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            number x
+            if (x) x <- 0
+            end
+        

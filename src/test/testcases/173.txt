@@ -1,0 +1,12 @@
+
+            func f(number x)
+            begin
+            if (x > 5) return x % 2
+            elif (x <= 5) return x - 1
+            end
+            func main()
+            begin
+            number x
+            if (f(2)) x <- 0
+            end
+        

@@ -1,0 +1,6 @@
+
+            func main()
+            begin
+            number b <- 1 + "hi"
+            end
+        

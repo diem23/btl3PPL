@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            dynamic x
+            var a63 <- x
+            end
+        

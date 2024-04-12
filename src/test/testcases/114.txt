@@ -1,0 +1,7 @@
+
+            bool ayu
+            func main()
+            begin
+            string ayu
+            end
+        

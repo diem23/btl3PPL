@@ -1,0 +1,10 @@
+
+            func main()
+            begin 
+                dynamic a
+                a <- [1,2,3]
+                dynamic b
+                b <- [1,2]
+                bool c <- a = b
+            end
+        

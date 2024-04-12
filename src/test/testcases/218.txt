@@ -1,0 +1,12 @@
+
+            func a()
+            func main()
+            begin
+            string a <- a()
+            end
+            
+            func a()
+            begin
+            string b 
+            end
+        

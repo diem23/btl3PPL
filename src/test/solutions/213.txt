@@ -1,0 +1,1 @@
+Type Cannot Be Inferred: VarDecl(Id(b), None, var, Id(b))

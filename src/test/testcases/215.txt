@@ -1,0 +1,8 @@
+
+            func main()
+            begin
+            dynamic x107
+            x107 <- (x107 = 1) or ("abc" == "abc")
+            ##bool a107 <- x107
+            end
+        

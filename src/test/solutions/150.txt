@@ -1,0 +1,1 @@
+Type Mismatch In Statement: VarDecl(Id(b), NumberType, None, ArrayCell(Id(a50), [NumLit(0.0)]))

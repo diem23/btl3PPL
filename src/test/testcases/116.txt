@@ -1,0 +1,5 @@
+
+            func iiiii(number x)
+            func main() return
+            func iiiii(number y) return y
+        

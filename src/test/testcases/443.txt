@@ -1,13 +1,6 @@
 
-        func foo(number a, number b)
-        func main()
+        func test(number a, number b)
         begin
-            number a <- 2
-            string b <- "2.1"
-            a <- foo(b,a) + 2
+            dynamic c <- a + b > a - b and ((c ... "tam biet e nhe") == "hehe")
         end
-        func foo(number a, number b)
-        begin
-            return a+b
-        end
-            
+        

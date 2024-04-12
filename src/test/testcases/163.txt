@@ -1,0 +1,12 @@
+
+            func f61(string x61)
+            begin
+            if (x61 == "a") return x61 ... "a"
+            elif (x61 == "b") return x61 ... "b"
+            else return x61
+            end
+            func main()
+            begin
+            var a <- f61("a") == "ab"
+            end
+        

@@ -1,0 +1,7 @@
+
+            func f(number x) return
+            func main()
+            begin
+            f(1, 2)
+            end
+        

@@ -1,0 +1,10 @@
+
+        func foo()
+            begin
+            end
+
+        func main()
+            begin
+                dynamic x <- foo()
+            end
+        

@@ -1,0 +1,9 @@
+
+            func f(number x) return
+            func main()
+            begin
+            dynamic x
+            f(x)
+            x <- x + 1
+            end
+        

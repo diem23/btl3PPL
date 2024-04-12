@@ -1,0 +1,5 @@
+
+        func f(string a, string a)
+        begin
+        end
+        

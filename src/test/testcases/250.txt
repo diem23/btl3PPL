@@ -1,0 +1,14 @@
+
+        func f(number a[2,2,2,2])
+        begin
+            return 1
+        end
+        func main()
+        begin
+            dynamic x
+            dynamic y
+            number a <- f([[[[1,2], [3,4]], [[1,2], [3,4]]], [x, y]])
+            x <- [[5,6], [7,8]]
+            y <- x
+        end
+        

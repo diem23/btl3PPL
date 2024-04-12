@@ -1,0 +1,7 @@
+
+            func f() return
+            func main()
+            begin
+            number a51 <- f()
+            end
+        

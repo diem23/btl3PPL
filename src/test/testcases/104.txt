@@ -1,1 +1,6 @@
-123a123
+
+            func f(string ba, number g)
+            begin
+            number main
+            end
+        

@@ -1,13 +1,9 @@
 
-        func main()
+        func main(number a, number b)
         begin
-            number a
-            number b
-            bool c
-            bool d
-            number e
-            c <- b > e
-            c <- e <= b
-            d <- b == e ## invalid: b==e
+            dynamic d
+            dynamic c
+            bool e <- (d...c == c ) and (a > b) or (a < b)
         end
-            
+        func main()
+        

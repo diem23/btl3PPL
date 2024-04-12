@@ -1,0 +1,5 @@
+
+            func main() return
+            func f() return a
+            number a
+        

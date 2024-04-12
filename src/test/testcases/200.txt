@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            number a
+            if (a > 5) continue
+            end
+        

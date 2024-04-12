@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            number x
+            for x until x by 1 x <- 0
+            end
+        

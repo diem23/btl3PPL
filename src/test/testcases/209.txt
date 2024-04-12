@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            number f
+            number a <- f()
+            end
+        

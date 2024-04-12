@@ -1,0 +1,8 @@
+
+            func a33()
+            func main()
+            begin
+            a33()
+            end
+            func a33() return
+        

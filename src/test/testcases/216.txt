@@ -1,0 +1,7 @@
+
+            func main()
+            begin
+            dynamic x
+            var y <- (x = 1) or (x + 1)
+            end
+        

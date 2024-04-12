@@ -1,0 +1,10 @@
+
+            bool a
+            func main()
+            begin
+            string a
+                begin
+                number a
+                end
+            end
+        

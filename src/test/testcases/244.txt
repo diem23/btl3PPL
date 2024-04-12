@@ -1,0 +1,7 @@
+
+        func f134(number a, string b)
+        func f134(number a, string b)
+        begin
+        end
+        func main() return
+        

@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(foo), [Id(b), Id(a)])
+Type Mismatch In Expression: BinaryOp(and, BinaryOp(-, Id(a), Id(b)), BinaryOp(==, BinaryOp(..., Id(c), StringLit(tam biet e nhe)), StringLit(hehe)))

@@ -1,0 +1,1 @@
+Type Cannot Be Inferred: VarDecl(Id(x), None, dynamic, CallExpr(Id(f), []))

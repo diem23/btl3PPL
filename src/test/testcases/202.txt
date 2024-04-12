@@ -1,3 +1,15 @@
-int main () {
-            putIntLn(4);
-        }
+
+            func main()
+            begin
+            number a
+            for a until a > 10 by 5
+            begin
+                if (a > 5)
+                    begin
+                        begin
+                        break
+                        end
+                    end
+                end
+            end
+        

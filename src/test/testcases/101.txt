@@ -1,1 +1,4 @@
-'Yanxi Palace - 2018'
+
+            func main()
+            return 1
+        

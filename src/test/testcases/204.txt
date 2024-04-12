@@ -1,0 +1,10 @@
+
+            func main()
+            begin
+            number a
+            for a until a > 5 by 5
+            if (a % 2 = 0) continue
+            elif (a > 1) break
+            else continue
+            end
+        
